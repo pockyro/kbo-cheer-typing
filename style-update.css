@@ -1,0 +1,11 @@
+
+/* 2026 typing-practice update */
+html,body,button,input,textarea,select{font-family:'Do Hyeon','Nanum Gothic',sans-serif}
+.typing-label{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.typing-label small{font-size:clamp(11px,.85vw,14px);font-weight:400;color:#64748b}
+.lyrics-box{display:flex;align-items:center;min-height:85px;font-size:clamp(20px,2vw,34px);font-weight:700;word-break:keep-all}
+.lyrics-box .done{color:#a4aab3}.lyrics-box .wrong{color:#e3212b;background:#ffe0e0}.lyrics-box .current{border-bottom:3px solid var(--team);background:#fff2b7}
+.input-box{height:17%;min-height:58px;white-space:pre-wrap;overflow:auto}
+.keyboard{gap:5px}.key{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:34px;padding:3px 2px}.key b{font-size:clamp(12px,1vw,16px);color:#333}.key small{font:700 clamp(9px,.7vw,12px) Arial,sans-serif;color:#7b8490}.key.active b,.key.active small{color:#fff}.enter-key{max-width:25%;background:#fff3d6}.space-key{max-width:48%}
+.time-mode-label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:clamp(13px,1vw,16px);font-weight:700;color:#334155}.time-mode-label select,.custom-time input{border:1px solid #b9c5d5;border-radius:9px;padding:6px 9px;background:#fff;color:#222;font-size:14px}.custom-time{font-size:13px;text-align:right;color:#536}.custom-time input{width:76px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.stat strong{font-size:clamp(14px,1.15vw,20px)}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.lyrics-box{min-height:90px}.input-box{min-height:65px}}
