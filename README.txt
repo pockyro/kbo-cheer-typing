@@ -1,3 +1,11 @@
-KBO 응원가 타이핑게임
-GitHub Pages: 저장소 최상위(root)에 index.html, style.css, app.js, teams.json 및 10개 구단 html 파일을 모두 업로드하세요.
-Settings > Pages > Deploy from a branch > main > /(root) 선택.
+KBO 응원가 타자연습
+
+1. 압축을 풀고 모든 파일을 GitHub 저장소 루트에 업로드하세요.
+2. GitHub Pages가 main / (root)로 설정되어 있으면 index.html이 메인 화면입니다.
+3. 구단 카드에서 각 구단별 타이핑 페이지로 이동합니다.
+4. 응원가 추가 기능은 현재 브라우저의 localStorage에 저장됩니다.
+
+참고:
+- NanumSquare 글꼴을 우선 지정하고, 글꼴이 없을 때 Nanum Gothic으로 대체합니다.
+- 롯데 페이지에는 대화에서 제공된 롯데 응원가만 기본 수록했습니다. 다른 구단의 응원가 가사는 임의로 만들지 않았으므로 각 페이지에서 직접 추가해 주세요.
+- 실제 KBO 공식 로고 이미지는 포함하지 않고 구단별 컬러와 이니셜 마크로 표현했습니다.
