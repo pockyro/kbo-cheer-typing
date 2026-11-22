@@ -1,6 +1,15 @@
-KBO 응원가 타자연습
-- index.html을 GitHub Pages 루트에 업로드하세요.
-- 모든 HTML, CSS, JS 파일을 같은 폴더에 둡니다.
-- PC에서는 스크롤 없이 한 화면에 표시되도록 구성했습니다. 작은 모바일 화면에서는 읽기 편의를 위해 세로 배치됩니다.
-- NanumSquare가 기기에 없으면 Nanum Gothic으로 대체됩니다.
-- 사용자가 추가한 응원가는 브라우저 localStorage에 저장됩니다.
+KBO 응원가 타자연습 수정 파일
+
+포함 파일: game.js, style-update.css
+
+적용 방법:
+1. GitHub 저장소 pockyro/kbo-cheer-typing 열기
+2. game.js를 열고 연필(Edit) 아이콘을 눌러 전체 내용을 game.js 파일 내용으로 교체
+3. style-update.css도 같은 방식으로 전체 내용을 교체
+4. 각각 Commit changes
+
+수정 사항:
+- 한글 두벌식 키 입력 감지 및 가상 키보드 표시
+- 가사 띄어쓰기 보존(공백은 &nbsp;로 렌더링)
+- 나눔스퀘어체 강제 적용
+- 기존 시간 모드, 한 줄 진행, 통계, 응원가 저장 기능 유지

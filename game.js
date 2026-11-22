@@ -6,7 +6,6 @@ document.title=team.name+' 응원가 타이핑';
 $('teamName').textContent=team.name+' 응원가 타이핑';
 $('youtubeLink').href='https://www.youtube.com/results?search_query='+encodeURIComponent(team.name+' 응원가');
 
-// 기존에 등록된 롯데 응원가 원문은 그대로 보존합니다.
 const defaultSongs=team.id==='lotte'?[{title:'부산갈매기',lyrics:'지금은 그 어디서 내 생각 잊었는가\n꽃처럼 어여쁜 그 이름도 고왔던 순이 순이야\n파도치는 부둣가에 지나간 일들이 가슴에 남았는데\n부산 갈매기 부산 갈매기 너는 정녕 나를 잊었나\n\n지금은 그 어디서 내 모습 잊었는가\n꽃처럼 어여쁜 그 이름도 고왔던 순이 순이야\n그리움이 물결치며 오늘도 못잊어 네 이름 부르는데\n부산 갈매기 부산 갈매기 너는 벌써 나를 잊었나'},{title:'윤동희 응원가',lyrics:'롯데의 (Hey!) 윤동희~ 쌔리라 안타 쌔리라~\n최강롯데 자이언츠 윤동희~ (안타!)\n최강롯데 자이언츠 윤동희~ (안타!)'},{title:'영원하라',lyrics:'자~ 롯데의 승리 위해\n소리 높여 외쳐보자\n최~강 롯데 자이언츠\n최~강 롯데 자이언츠\n아~ 롯데는 승리한다\n최!강!롯!데!\n최~강 롯데 자이언츠\n최~강 롯데 자이언츠\n아~ 롯데는 승리하리라~'}]:[];
 let songs=[...defaultSongs,...JSON.parse(localStorage.getItem('songs-'+team.id)||'[]')];
 let selected=0,started=false,timer=null,countTimer=null,timeLeft=60,mode='60',lineIndex=0,lines=[],correct=0,typed=0,startedAt=0,composition=false;
@@ -19,7 +18,7 @@ function renderSongs(){
 function currentLine(){return lines[lineIndex]??''}
 function renderLyrics(){
  const target=currentLine(),v=input.value;let html='';
- for(let i=0;i<target.length;i++){const c=i<v.length?(v[i]===target[i]?'done':'wrong'):(i===v.length?'current':'');html+=`<span class="${c}">${esc(target[i])}</span>`}
+ for(let i=0;i<target.length;i++){const c=i<v.length?(v[i]===target[i]?'done':'wrong'):(i===v.length?'current':'');html+=`<span class="${c}">${target[i]===' '?'&nbsp;':esc(target[i])}</span>`}
  $('lyrics').innerHTML=html||'<span class="line-placeholder">(빈 줄)</span>';
  $('lineProgress').textContent=`${Math.min(lineIndex+1,lines.length)} / ${lines.length}줄`;
 }
@@ -56,13 +55,20 @@ input.addEventListener('compositionend',()=>{composition=false;renderLyrics();})
 input.addEventListener('input',()=>{if(!started)return;renderLyrics();stats()});
 input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing&&!composition){e.preventDefault();advanceLine()}});
 const hangulKeys={KeyQ:'ㅂ',KeyW:'ㅈ',KeyE:'ㄷ',KeyR:'ㄱ',KeyT:'ㅅ',KeyY:'ㅛ',KeyU:'ㅕ',KeyI:'ㅑ',KeyO:'ㅐ',KeyP:'ㅔ',KeyA:'ㅁ',KeyS:'ㄴ',KeyD:'ㅇ',KeyF:'ㄹ',KeyG:'ㅎ',KeyH:'ㅗ',KeyJ:'ㅓ',KeyK:'ㅏ',KeyL:'ㅣ',KeyZ:'ㅋ',KeyX:'ㅌ',KeyC:'ㅊ',KeyV:'ㅍ',KeyB:'ㅠ',KeyN:'ㅜ',KeyM:'ㅡ'};
-document.addEventListener('keydown',e=>{
- if(e.ctrlKey||e.metaKey||e.altKey)return;
- if(e.key==='Shift')return;
- const label=e.code==='Space'?'SPACE':(hangulKeys[e.code]?(hangulKeys[e.code]+' / '+e.key.toUpperCase()):e.key.toUpperCase());
- $('lastKey').textContent=label;
- document.querySelectorAll('.key').forEach(k=>k.classList.toggle('active',k.dataset.code===e.code));
-});
+function showVirtualKey(e){
+ if(e.ctrlKey||e.metaKey||e.altKey||e.key==='Shift')return;
+ let code=e.code;
+ if(!code||code==='Unidentified'){
+   const key=String(e.key||'').toLowerCase();
+   if(key===' ')code='Space';
+   else if(/^[a-z]$/.test(key))code='Key'+key.toUpperCase();
+ }
+ const label=code==='Space'?'SPACE':(hangulKeys[code]?(hangulKeys[code]+' / '+String(e.key||'').toUpperCase()):String(e.key||'').toUpperCase());
+ if(label)$('lastKey').textContent=label;
+ document.querySelectorAll('.key').forEach(k=>k.classList.toggle('active',k.dataset.code===code));
+}
+document.addEventListener('keydown',showVirtualKey,true);
+input.addEventListener('keydown',showVirtualKey,true);
 $('startBtn').onclick=countdown;
 $('timeMode').addEventListener('change',resetGame);
 $('addSongBtn').onclick=()=>$('songModal').classList.remove('hidden');
